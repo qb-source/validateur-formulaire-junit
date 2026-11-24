@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>                              <!-- Ligne obligatoire : "ceci est un fichier XML, avec accents" -->
+
+<!-- La balise <project> ouvre la grande boîte : tout le projet est dedans. -->
+<!-- Ses 3 lignes techniques sont toujours identiques : on ne les touche pas. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>                              <!-- Version du format pom : toujours 4.0.0 -->
+
+    <!-- ===== 1. La fiche d'identité du projet ===== -->
+    <groupId>com.apprentissage</groupId>                            <!-- Le "nom de famille" : qui a fait le projet -->
+    <artifactId>validateur-formulaire</artifactId>                   <!-- Le "prénom" : le nom du projet -->
+    <version>1.0</version>                                          <!-- La version de TON projet -->
+
+    <!-- ===== 2. Les réglages ===== -->
+    <properties>                                                    <!-- Ouvre la boîte des réglages -->
+        <maven.compiler.release>25</maven.compiler.release>         <!-- Utiliser Java 25 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>   <!-- Les accents marchent -->
+    </properties>                                                   <!-- Ferme la boîte des réglages -->
+
+    <!-- ===== 3. La liste d'épicerie : les bibliothèques à télécharger ===== -->
+    <dependencies>                                                  <!-- Ouvre la liste des bibliothèques -->
+        <dependency>                                                <!-- Une bibliothèque : JUnit -->
+            <groupId>org.junit.jupiter</groupId>                    <!-- Qui la fabrique : l'équipe JUnit -->
+            <artifactId>junit-jupiter</artifactId>                  <!-- Son nom exact -->
+            <version>6.1.0</version>                                <!-- Quelle version télécharger -->
+            <scope>test</scope>                                     <!-- Seulement pour les tests -->
+        </dependency>                                               <!-- Fin de JUnit -->
+    </dependencies>                                                 <!-- Ferme la liste des bibliothèques -->
+
+    <!-- ===== 4. L'outil qui lance les tests ===== -->
+    <build>                                                         <!-- Ouvre la boîte "comment construire le projet" -->
+        <plugins>                                                   <!-- Ouvre la liste des outils -->
+            <plugin>                                                <!-- Un outil : Surefire -->
+                <groupId>org.apache.maven.plugins</groupId>         <!-- Qui le fabrique : l'équipe Maven -->
+                <artifactId>maven-surefire-plugin</artifactId>      <!-- C'est lui qui exécute les tests -->
+                <version>3.5.5</version>                            <!-- Version compatible avec JUnit 6 -->
+
+                <!-- ===== Afficher le @DisplayName de la classe dans le terminal ===== -->
+                <configuration>                                     <!-- Ouvre les réglages de Surefire -->
+                    <!-- L'outil qui écrit les résultats dans le terminal (ligne technique, à copier telle quelle) -->
+                    <statelessTestsetInfoReporter implementation="org.apache.maven.plugin.surefire.extensions.junit5.JUnit5StatelessTestsetInfoReporter">
+                        <usePhrasedClassNameInRunning>true</usePhrasedClassNameInRunning>   <!-- Ligne "Running" : nom affiché de la classe -->
+                    </statelessTestsetInfoReporter>                 <!-- Ferme l'outil d'affichage -->
+                </configuration>                                    <!-- Ferme les réglages de Surefire -->
+
+            </plugin>                                               <!-- Fin de Surefire -->
+        </plugins>                                                  <!-- Ferme la liste des outils -->
+    </build>                                                        <!-- Ferme la boîte "build" -->
+
+</project>                                                          <!-- Ferme la grande boîte : fin du fichier -->
